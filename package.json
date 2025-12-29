@@ -1,5 +1,5 @@
 {
-  "name": "bookreview",
+  "name": "beyondchats",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "nodemon --env-file=.env.dev server.js",
     "pro": "node --env-file=.env server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "spec:search": "node  --env-file=.env.dev spec/search.spec.js ",
+    "spec:scrape": "node --env-file=.env.dev spec/scrape.spec.js"
   },
   "keywords": [],
   "author": "",
