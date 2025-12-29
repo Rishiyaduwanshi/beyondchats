@@ -3,8 +3,14 @@ import { config } from '../config/index.js'
 
 const connectDb = async () => {
   try {
-    const connection = await mongoose.connect(config.MONGO_URI);
-    console.log("Database connected successfully 🥳 on", connection.connection.host);
+    const conn = await mongoose.connect(config.MONGO_URI);
+    const { host, name } = conn.connection;
+
+    console.log(
+      `🟢 Database connected successfully!
+      📦 Database : ${name}
+      🌐 Host     : ${host}`
+    );
   } catch (error) {
     console.error("Database connection error 😢", error);
     process.exit(1);
