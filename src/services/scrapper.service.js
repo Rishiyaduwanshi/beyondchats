@@ -103,25 +103,19 @@ export async function scrapeArticleContent(url) {
       $('title').text().trim() ||
       'No title found';
 
-    const description = $('meta[name="description"]').attr('content') ||
-      $('meta[property="og:description"]').attr('content') ||
-      '';
-
     const validation = validateContent(content);
 
     return {
-      url,
       title,
-      description,
+      link: url,
       content,
-      contentLength: content.length,
       ...validation
     };
 
   } catch (error) {
     return {
-      url,
       title: 'Scraping failed',
+      link: url,
       content: '',
       contentLength: 0,
       isValid: false,

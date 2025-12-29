@@ -19,6 +19,7 @@ const appConfig = {
     APP_URL: process.env.APP_URL ?? `http://localhost:${PORT}`,
     APP_NAME: process.env.APP_NAME ?? 'boiler',
     VERSION: version,
+    SERPAPI : process.env.SERPAPI_KEY
 };
 
 
