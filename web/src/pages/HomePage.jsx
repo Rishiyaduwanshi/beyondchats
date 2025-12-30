@@ -3,12 +3,14 @@ import ApiService from '../services/api';
 import ArticleCard from '../components/common/ArticleCard';
 import Loader from '../components/common/Loader';
 import ErrorMessage from '../components/common/ErrorMessage';
-import { FileText } from 'lucide-react';
+import { FileText, Download } from 'lucide-react';
 
 const HomePage = () => {
     const [articles, setArticles] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [scraping, setScraping] = useState(false);
+    const [scrapeCount, setScrapeCount] = useState(5);
 
     useEffect(() => {
         fetchArticles();
@@ -30,6 +32,23 @@ const HomePage = () => {
     const handleDelete = async (id) => {
         await ApiService.deleteBlog(id);
         setArticles(articles.filter(article => article._id !== id));
+    };
+
+    const handleScrape = async () => {
+        if (!window.confirm(`Scrape ${scrapeCount} oldest articles from BeyondChats blog?`)) {
+            return;
+        }
+
+        setScraping(true);
+        try {
+            const response = await ApiService.scrapeBlogs(scrapeCount);
+            alert(`Successfully scraped ${response.data.count} articles!`);
+            await fetchArticles(); // Refresh list
+        } catch (err) {
+            alert('Failed to scrape articles: ' + (err.message || 'Unknown error'));
+        } finally {
+            setScraping(false);
+        }
     };
 
     if (loading) {
@@ -57,6 +76,43 @@ const HomePage = () => {
                     <span className="text-purple-400 font-medium">
                         {articles.length} {articles.length === 1 ? 'Article' : 'Articles'} Found
                     </span>
+                </div>
+            </div>
+
+            {/* Scrape Section */}
+            <div className="bg-gray-800 rounded-lg p-6 mb-8 border border-gray-700">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div className="flex-1">
+                        <h3 className="text-lg font-semibold text-white mb-2">Scrape New Articles</h3>
+                        <p className="text-gray-400 text-sm">
+                            Fetch the oldest articles from BeyondChats blog
+                        </p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2">
+                            <label htmlFor="scrapeCount" className="text-gray-400 text-sm">
+                                Count:
+                            </label>
+                            <input
+                                id="scrapeCount"
+                                type="number"
+                                min="1"
+                                max="20"
+                                value={scrapeCount}
+                                onChange={(e) => setScrapeCount(Number(e.target.value))}
+                                className="w-20 bg-gray-700 text-white px-3 py-2 rounded-lg border border-gray-600 focus:outline-none focus:border-purple-500"
+                                disabled={scraping}
+                            />
+                        </div>
+                        <button
+                            onClick={handleScrape}
+                            disabled={scraping}
+                            className="bg-purple-600 hover:bg-purple-700 disabled:bg-purple-800 text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
+                        >
+                            <Download className="w-5 h-5" />
+                            {scraping ? 'Scraping...' : 'Scrape Articles'}
+                        </button>
+                    </div>
                 </div>
             </div>
 

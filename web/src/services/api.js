@@ -1,6 +1,21 @@
 const API_BASE_URL = 'http://localhost:5050/api/v1';
 
 class ApiService {
+    // Scrape blogs
+    static async scrapeBlogs(limit = 5) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/blogs/scrape?limit=${limit}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error scraping blogs:', error);
+            throw error;
+        }
+    }
+
     // Get all blogs
     static async getAllBlogs() {
         try {
@@ -57,6 +72,40 @@ class ApiService {
             return data;
         } catch (error) {
             console.error('Error fetching LLM blog:', error);
+            throw error;
+        }
+    }
+
+    // Delete blog
+    static async deleteBlog(id) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/blogs/${id}`, {
+                method: 'DELETE',
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error deleting blog:', error);
+            throw error;
+        }
+    }
+
+    // Delete LLM blog
+    static async deleteLLMBlog(id) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/llmblogs/${id}`, {
+                method: 'DELETE',
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error deleting LLM blog:', error);
             throw error;
         }
     }
