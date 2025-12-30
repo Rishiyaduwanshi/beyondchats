@@ -76,6 +76,21 @@ class ApiService {
         }
     }
 
+    // Get all versions of a blog by original blog ID
+    static async getBlogVersions(originalBlogId) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/llmblogs/versions/${originalBlogId}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error fetching blog versions:', error);
+            throw error;
+        }
+    }
+
     // Delete blog
     static async deleteBlog(id) {
         try {

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import ApiService from '../services/api';
 import ArticleCard from '../components/common/ArticleCard';
+import VersionsModal from '../components/common/VersionsModal';
 import Loader from '../components/common/Loader';
 import ErrorMessage from '../components/common/ErrorMessage';
 import { FileText, Download } from 'lucide-react';
@@ -11,6 +12,12 @@ const HomePage = () => {
     const [error, setError] = useState(null);
     const [scraping, setScraping] = useState(false);
     const [scrapeCount, setScrapeCount] = useState(5);
+
+    // Versions modal state
+    const [showVersionsModal, setShowVersionsModal] = useState(false);
+    const [selectedArticle, setSelectedArticle] = useState(null);
+    const [versions, setVersions] = useState([]);
+    const [loadingVersions, setLoadingVersions] = useState(false);
 
     useEffect(() => {
         fetchArticles();
@@ -49,6 +56,29 @@ const HomePage = () => {
         } finally {
             setScraping(false);
         }
+    };
+
+    const handleViewVersions = async (article) => {
+        setSelectedArticle(article);
+        setShowVersionsModal(true);
+        setLoadingVersions(true);
+        setVersions([]);
+
+        try {
+            const response = await ApiService.getBlogVersions(article._id);
+            setVersions(response.data.versions || []);
+        } catch (err) {
+            console.error('Failed to fetch versions:', err);
+            setVersions([]);
+        } finally {
+            setLoadingVersions(false);
+        }
+    };
+
+    const handleCloseVersionsModal = () => {
+        setShowVersionsModal(false);
+        setSelectedArticle(null);
+        setVersions([]);
     };
 
     if (loading) {
@@ -131,10 +161,19 @@ const HomePage = () => {
                             article={article}
                             type="original"
                             onDelete={handleDelete}
+                            onViewVersions={handleViewVersions}
                         />
                     ))}
                 </div>
             )}
+
+            {/* Versions Modal */}
+            <VersionsModal
+                isOpen={showVersionsModal}
+                onClose={handleCloseVersionsModal}
+                versions={loadingVersions ? [] : versions}
+                originalBlogTitle={selectedArticle?.title || ''}
+            />
         </div>
     );
 };

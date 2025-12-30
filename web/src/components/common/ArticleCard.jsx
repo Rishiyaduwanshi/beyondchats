@@ -1,8 +1,8 @@
-import { Calendar, Clock, ExternalLink, Trash2 } from 'lucide-react';
+import { Calendar, Clock, ExternalLink, Trash2, GitBranch } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
-const ArticleCard = ({ article, type = 'original', onDelete }) => {
+const ArticleCard = ({ article, type = 'original', onDelete, onViewVersions }) => {
     const [isDeleting, setIsDeleting] = useState(false);
 
     const handleDelete = async () => {
@@ -83,17 +83,28 @@ const ArticleCard = ({ article, type = 'original', onDelete }) => {
                             Read Full Article
                         </Link>
                     ) : (
-                        article.link && (
-                            <a
-                                href={article.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-lg transition-colors text-center font-medium flex items-center justify-center gap-2"
-                            >
-                                Read Original Article
-                                <ExternalLink className="w-4 h-4" />
-                            </a>
-                        )
+                        <>
+                            {article.link && (
+                                <a
+                                    href={article.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-lg transition-colors text-center font-medium flex items-center justify-center gap-2"
+                                >
+                                    Read Original Article
+                                    <ExternalLink className="w-4 h-4" />
+                                </a>
+                            )}
+                            {onViewVersions && (
+                                <button
+                                    onClick={() => onViewVersions(article)}
+                                    className="bg-purple-500/20 hover:bg-purple-500/30 text-purple-400 p-2 rounded-lg transition-colors flex items-center justify-center border border-purple-500/30"
+                                    title="View AI-enhanced versions"
+                                >
+                                    <GitBranch className="w-5 h-5" />
+                                </button>
+                            )}
+                        </>
                     )}
                     {onDelete && (
                         <button
