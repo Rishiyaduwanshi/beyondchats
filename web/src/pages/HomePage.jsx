@@ -120,19 +120,20 @@ const HomePage = () => {
                     </div>
                     <div className="flex items-center gap-3">
                         <div className="flex items-center gap-2">
-                            <label htmlFor="scrapeCount" className="text-gray-400 text-sm">
+                            <label htmlFor="scrapeCount" className="text-gray-400 text-sm whitespace-nowrap">
                                 Count:
                             </label>
-                            <input
+                            <select
                                 id="scrapeCount"
-                                type="number"
-                                min="1"
-                                max="20"
                                 value={scrapeCount}
                                 onChange={(e) => setScrapeCount(Number(e.target.value))}
-                                className="w-20 bg-gray-700 text-white px-3 py-2 rounded-lg border border-gray-600 focus:outline-none focus:border-purple-500"
+                                className="bg-gray-700 text-white px-3 py-2 rounded-lg border border-gray-600 focus:outline-none focus:border-purple-500 cursor-pointer"
                                 disabled={scraping}
-                            />
+                            >
+                                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20].map(num => (
+                                    <option key={num} value={num}>{num}</option>
+                                ))}
+                            </select>
                         </div>
                         <button
                             onClick={handleScrape}
