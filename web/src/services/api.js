@@ -34,7 +34,7 @@ class ApiService {
     // Get all LLM blogs
     static async getAllLLMBlogs() {
         try {
-            const response = await fetch(`${API_BASE_URL}/llm-blogs`);
+            const response = await fetch(`${API_BASE_URL}/llmblogs`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
