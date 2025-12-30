@@ -49,7 +49,7 @@ class ApiService {
     // Get single LLM blog by ID
     static async getLLMBlogById(id) {
         try {
-            const response = await fetch(`${API_BASE_URL}/llm-blogs/${id}`);
+            const response = await fetch(`${API_BASE_URL}/llmblogs/${id}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
