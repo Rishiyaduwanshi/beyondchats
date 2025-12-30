@@ -62,7 +62,7 @@ export async function scrapeOldestBlogs(blog_limit) {
   return allBlogs;
 }
 
-export async function scrapeArticleContent(url) {
+export async function scrapeArticleContent(url, metaDesc, position) {
   try {
     const $ = await fetchHTML(url);
 
@@ -108,7 +108,9 @@ export async function scrapeArticleContent(url) {
     return {
       title,
       link: url,
+      metaDesc,
       content,
+      position,
       ...validation
     };
 

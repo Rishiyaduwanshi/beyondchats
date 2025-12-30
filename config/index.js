@@ -9,7 +9,7 @@ const __dirname = dirname(__filename);
 const packageJsonPath = join(__dirname, '../package.json');
 const packageJsonData = readFileSync(packageJsonPath, 'utf-8');
 const { version } = JSON.parse(packageJsonData);
-const PORT =  process.env.PORT ?? 4040;
+const PORT = process.env.PORT ?? 4040;
 
 // ====== App Config ======
 const appConfig = {
@@ -19,7 +19,8 @@ const appConfig = {
     APP_URL: process.env.APP_URL ?? `http://localhost:${PORT}`,
     APP_NAME: process.env.APP_NAME ?? 'boiler',
     VERSION: version,
-    SERPAPI : process.env.SERPAPI_KEY
+    SERPAPI: process.env.SERPAPI_KEY,
+    GROQ_API_KEY: process.env.GROQ_API_KEY
 };
 
 
@@ -33,8 +34,8 @@ const jwtConfig = {
 
 // ====== Allowed Origins Config ======
 const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(',')  
-  : ['http://localhost:5173'];            
+    ? process.env.ALLOWED_ORIGINS.split(',')
+    : ['http://localhost:5173'];
 
 
 // ====== Rate Limiting Config ======

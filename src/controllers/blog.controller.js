@@ -88,6 +88,27 @@ export const getBlogById = async (req, res, next) => {
     }
 };
 
+export const updateBlog = async (req, res, next) => {
+    try {
+        const blog = await Blog.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true, runValidators: true }
+        );
+
+        if (!blog) {
+            throw new NotFoundError('Blog not found');
+        }
+
+        appResponse(res, {
+            message: 'Blog updated successfully',
+            data: blog
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const deleteBlog = async (req, res, next) => {
     try {
         const blog = await Blog.findByIdAndDelete(req.params.id);
