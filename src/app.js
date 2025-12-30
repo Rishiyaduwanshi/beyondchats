@@ -23,6 +23,7 @@ app.use(express.json());
 import indexRoutes from './routes/index.js';
 import authRoutes from './routes/auth.routes.js';
 import blogRoutes from './routes/blog.routes.js';
+import llmBlogRoutes from './routes/llmBlog.route.js'
 
 
 // API routes
@@ -31,6 +32,7 @@ const api = express.Router();
 app.use('/', indexRoutes);
 api.use('/auth', authRoutes);
 api.use('/blogs', blogRoutes);
+api.use('/llmblogs', llmBlogRoutes);
 
 app.use(`/api/v${config.VERSION.split(".")[0]}`, api);
 
