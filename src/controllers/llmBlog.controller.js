@@ -88,12 +88,12 @@ export const deleteBlog = async (req, res, next) => {
 
 export const getBlogVersionsByOriginalId = async (req, res, next) => {
     try {
-        const { originalBlogId } = req.params;
+        const { id } = req.params; // Changed from originalBlogId to id
 
-        if (!originalBlogId) throw new BadRequestError('Original blog ID is required');
+        if (!id) throw new BadRequestError('Original blog ID is required');
 
         const blogVersions = await llmBlog
-            .find({ originalBlog: originalBlogId })
+            .find({ originalBlog: id })
             .select("-originalBlog")
             .sort({ version: 1 })
             .lean();
@@ -105,7 +105,7 @@ export const getBlogVersionsByOriginalId = async (req, res, next) => {
         appResponse(res, {
             message: 'Blog versions fetched successfully',
             data: {
-                originalBlogId,
+                originalBlogId: id,
                 versions: blogVersions
             }
         });
