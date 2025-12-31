@@ -74,7 +74,7 @@ Content:
 """
 ${referenceArticles[0].content}
 """
-
+ ${referenceArticles[1] ? `
 REFERENCE ARTICLE 2 (title, link, meta desc & content):
 Title: ${referenceArticles[1].title}
 Meta Description: ${referenceArticles[1].metaDesc}
@@ -83,7 +83,9 @@ Link: ${referenceArticles[1].link}
 Content:
 """
 ${referenceArticles[1].content}
-"""
+""" ` : ""
+}
+
 `;
 
     try {

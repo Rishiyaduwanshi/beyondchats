@@ -1,4 +1,5 @@
 import { fetchHTML, cleanContent, validateContent } from '../utils/helper.js';
+import logger from '../utils/errorLogger.js';
 
 const BASE_URL = 'https://beyondchats.com/blogs/';
 
@@ -115,6 +116,7 @@ export async function scrapeArticleContent(url, metaDesc, position) {
     };
 
   } catch (error) {
+    logger.warn(`Scrapping failed for:  ${url} \n Trace: ${error.stack}`)
     return {
       title: 'Scraping failed',
       link: url,
