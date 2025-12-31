@@ -1,19 +1,15 @@
 import express from 'express';
-import cors from 'cors'
+import cors from 'cors';
 import rateLimit from 'express-rate-limit';
-import cookieParser from 'cookie-parser'
 import { config } from '../config/index.js';
 import { AppError } from './utils/appError.js';
 import httpLogger from './utils/appLogger.js';
 import globalErrorHandler from './middlewares/globalError.mid.js';
 import { corsOptions } from '../config/cors.js';
 
-
 const app = express();
 
 app.use(cors(corsOptions));
-
-app.use(cookieParser())
 app.use(httpLogger);
 app.use(rateLimit(config.GLOBAL_RATE_LIMIT_CONFIG));
 app.use(rateLimit(config.PER_IP_RATE_LIMIT_CONFIG));
@@ -21,16 +17,13 @@ app.use(express.json());
 
 // Routes
 import indexRoutes from './routes/index.js';
-import authRoutes from './routes/auth.routes.js';
 import blogRoutes from './routes/blog.routes.js';
-import llmBlogRoutes from './routes/llmBlog.route.js'
-
+import llmBlogRoutes from './routes/llmBlog.route.js';
 
 // API routes
 const api = express.Router();
 
 app.use('/', indexRoutes);
-api.use('/auth', authRoutes);
 api.use('/blogs', blogRoutes);
 api.use('/llmblogs', llmBlogRoutes);
 
