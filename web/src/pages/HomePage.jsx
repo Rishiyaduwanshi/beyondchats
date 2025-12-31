@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import ApiService from '../services/api';
 import ArticleCard from '../components/common/ArticleCard';
 import VersionsModal from '../components/common/VersionsModal';
+import ProcessingModal from '../components/common/ProcessingModal';
 import Loader from '../components/common/Loader';
 import ErrorMessage from '../components/common/ErrorMessage';
 import { FileText, Download } from 'lucide-react';
@@ -18,6 +19,11 @@ const HomePage = () => {
     const [selectedArticle, setSelectedArticle] = useState(null);
     const [versions, setVersions] = useState([]);
     const [loadingVersions, setLoadingVersions] = useState(false);
+
+    // Processing modal state
+    const [showProcessingModal, setShowProcessingModal] = useState(false);
+    const [processingStatus, setProcessingStatus] = useState('processing'); // 'processing' | 'success' | 'error'
+    const [processingMessage, setProcessingMessage] = useState('');
 
     useEffect(() => {
         fetchArticles();
@@ -72,6 +78,46 @@ const HomePage = () => {
             setVersions([]);
         } finally {
             setLoadingVersions(false);
+        }
+    };
+
+    const handleRewrite = async (blogId) => {
+        // Show processing modal
+        setShowProcessingModal(true);
+        setProcessingStatus('processing');
+        setProcessingMessage('Generating AI-enhanced version of your article. This may take 1-2 minutes...');
+
+        try {
+            const response = await ApiService.rewriteBlog(blogId);
+
+            // Success - response structure is data.blog.updated
+            const updatedBlog = response.data.blog?.updated;
+            setProcessingStatus('success');
+            setProcessingMessage(
+                updatedBlog
+                    ? `Article rewritten successfully! Version ${updatedBlog.version} has been created.`
+                    : 'Article rewritten successfully!'
+            );
+
+            // Auto-close after 2 seconds and refresh versions
+            setTimeout(() => {
+                setShowProcessingModal(false);
+                // Open versions modal to show the new version
+                const article = articles.find(a => a._id === blogId);
+                if (article) {
+                    handleViewVersions(article);
+                }
+            }, 2000);
+        } catch (err) {
+            // Error
+            setProcessingStatus('error');
+            setProcessingMessage(err.message || 'Failed to rewrite article. Please try again.');
+        }
+    };
+
+    const handleCloseProcessingModal = () => {
+        if (processingStatus !== 'processing') {
+            setShowProcessingModal(false);
         }
     };
 
@@ -163,6 +209,7 @@ const HomePage = () => {
                             type="original"
                             onDelete={handleDelete}
                             onViewVersions={handleViewVersions}
+                            onRewrite={handleRewrite}
                         />
                     ))}
                 </div>
@@ -174,6 +221,14 @@ const HomePage = () => {
                 onClose={handleCloseVersionsModal}
                 versions={loadingVersions ? [] : versions}
                 originalBlogTitle={selectedArticle?.title || ''}
+            />
+
+            {/* Processing Modal */}
+            <ProcessingModal
+                isOpen={showProcessingModal}
+                status={processingStatus}
+                message={processingMessage}
+                onClose={handleCloseProcessingModal}
             />
         </div>
     );

@@ -79,7 +79,7 @@ class ApiService {
     // Get all versions of a blog by original blog ID
     static async getBlogVersions(originalBlogId) {
         try {
-            const response = await fetch(`${API_BASE_URL}/llmblogs/versions/${originalBlogId}`);
+            const response = await fetch(`${API_BASE_URL}/blogs/${originalBlogId}/versions`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -87,6 +87,23 @@ class ApiService {
             return data;
         } catch (error) {
             console.error('Error fetching blog versions:', error);
+            throw error;
+        }
+    }
+
+    // Rewrite blog with AI
+    static async rewriteBlog(blogId) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/blogs/${blogId}/rewrite`, {
+                method: 'POST',
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error rewriting blog:', error);
             throw error;
         }
     }

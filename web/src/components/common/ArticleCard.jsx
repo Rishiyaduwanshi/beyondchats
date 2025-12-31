@@ -1,9 +1,10 @@
-import { Calendar, Clock, ExternalLink, Trash2, GitBranch } from 'lucide-react';
+import { Calendar, Clock, ExternalLink, Trash2, GitBranch, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
-const ArticleCard = ({ article, type = 'original', onDelete, onViewVersions }) => {
+const ArticleCard = ({ article, type = 'original', onDelete, onViewVersions, onRewrite }) => {
     const [isDeleting, setIsDeleting] = useState(false);
+    const [isRewriting, setIsRewriting] = useState(false);
 
     const handleDelete = async () => {
         if (!window.confirm(`Are you sure you want to delete "${article.title}"?`)) {
@@ -18,6 +19,22 @@ const ArticleCard = ({ article, type = 'original', onDelete, onViewVersions }) =
             alert('Failed to delete article. Please try again.');
         } finally {
             setIsDeleting(false);
+        }
+    };
+
+    const handleRewrite = async () => {
+        if (!window.confirm(`Generate AI-enhanced version of "${article.title}"? This may take a few minutes.`)) {
+            return;
+        }
+
+        setIsRewriting(true);
+        try {
+            await onRewrite(article._id);
+        } catch (error) {
+            console.error('Rewrite failed:', error);
+            alert('Failed to rewrite article. Please try again.');
+        } finally {
+            setIsRewriting(false);
         }
     };
 
@@ -91,7 +108,7 @@ const ArticleCard = ({ article, type = 'original', onDelete, onViewVersions }) =
                                     rel="noopener noreferrer"
                                     className="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-lg transition-colors text-center font-medium flex items-center justify-center gap-2"
                                 >
-                                    Read Original Article
+                                    Original Article
                                     <ExternalLink className="w-4 h-4" />
                                 </a>
                             )}
@@ -102,6 +119,16 @@ const ArticleCard = ({ article, type = 'original', onDelete, onViewVersions }) =
                                     title="View AI-enhanced versions"
                                 >
                                     <GitBranch className="w-5 h-5" />
+                                </button>
+                            )}
+                            {onRewrite && (
+                                <button
+                                    onClick={handleRewrite}
+                                    disabled={isRewriting}
+                                    className="bg-green-500/20 hover:bg-green-500/30 disabled:bg-green-500/10 text-green-400 p-2 rounded-lg transition-colors flex items-center justify-center border border-green-500/30"
+                                    title={isRewriting ? "Rewriting... please wait" : "Generate AI-enhanced version"}
+                                >
+                                    <Sparkles className={`w-5 h-5 ${isRewriting ? 'animate-pulse' : ''}`} />
                                 </button>
                             )}
                         </>
