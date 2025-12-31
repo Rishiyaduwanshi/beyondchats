@@ -23,6 +23,10 @@ import llmBlogRoutes from './routes/llmBlog.route.js';
 // API routes
 const api = express.Router();
 
+api.get("/", (_, res) => {
+  res.redirect("/")
+})
+
 app.use('/', indexRoutes);
 api.use('/blogs', blogRoutes);
 api.use('/llmblogs', llmBlogRoutes);
