@@ -4,10 +4,12 @@
 .markdown-content {
     color: #d1d5db;
     line-height: 1.8;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .markdown-content h1 {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: white;
     margin-top: 2rem;
@@ -16,30 +18,63 @@
     border-bottom: 2px solid #374151;
 }
 
+@media (min-width: 640px) {
+    .markdown-content h1 {
+        font-size: 2rem;
+    }
+}
+
 .markdown-content h2 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: white;
     margin-top: 1.5rem;
     margin-bottom: 0.75rem;
 }
 
+@media (min-width: 640px) {
+    .markdown-content h2 {
+        font-size: 1.5rem;
+    }
+}
+
 .markdown-content h3 {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     font-weight: 600;
     color: white;
     margin-top: 1.25rem;
     margin-bottom: 0.5rem;
 }
 
+@media (min-width: 640px) {
+    .markdown-content h3 {
+        font-size: 1.25rem;
+    }
+}
+
 .markdown-content p {
     margin-bottom: 1rem;
+    font-size: 0.875rem;
+}
+
+@media (min-width: 640px) {
+    .markdown-content p {
+        font-size: 1rem;
+    }
 }
 
 .markdown-content ul,
 .markdown-content ol {
     margin-left: 1.5rem;
     margin-bottom: 1rem;
+    font-size: 0.875rem;
+}
+
+@media (min-width: 640px) {
+    .markdown-content ul,
+    .markdown-content ol {
+        font-size: 1rem;
+    }
 }
 
 .markdown-content li {
@@ -50,6 +85,7 @@
     color: #a78bfa;
     text-decoration: underline;
     transition: color 0.2s;
+    word-break: break-word;
 }
 
 .markdown-content a:hover {
@@ -61,16 +97,25 @@
     color: #f472b6;
     padding: 0.2rem 0.4rem;
     border-radius: 0.25rem;
-    font-size: 0.9em;
+    font-size: 0.8em;
     font-family: 'Courier New', monospace;
+    word-break: break-word;
 }
 
 .markdown-content pre {
     background-color: #1f2937;
-    padding: 1rem;
+    padding: 0.75rem;
     border-radius: 0.5rem;
     overflow-x: auto;
     margin-bottom: 1rem;
+    font-size: 0.75rem;
+}
+
+@media (min-width: 640px) {
+    .markdown-content pre {
+        padding: 1rem;
+        font-size: 0.875rem;
+    }
 }
 
 .markdown-content pre code {
@@ -86,25 +131,77 @@
     margin-bottom: 1rem;
     color: #9ca3af;
     font-style: italic;
+    font-size: 0.875rem;
 }
 
+@media (min-width: 640px) {
+    .markdown-content blockquote {
+        font-size: 1rem;
+    }
+}
+
+/* Table wrapper for horizontal scroll on mobile */
 .markdown-content table {
+    display: block;
     width: 100%;
+    overflow-x: auto;
     border-collapse: collapse;
     margin-bottom: 1rem;
+    font-size: 0.75rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 640px) {
+    .markdown-content table {
+        display: table;
+        font-size: 0.875rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .markdown-content table {
+        font-size: 1rem;
+    }
+}
+
+.markdown-content thead {
+    display: table-header-group;
+}
+
+.markdown-content tbody {
+    display: table-row-group;
+}
+
+.markdown-content tr {
+    display: table-row;
 }
 
 .markdown-content th,
 .markdown-content td {
+    display: table-cell;
     border: 1px solid #374151;
     padding: 0.5rem;
     text-align: left;
+    white-space: nowrap;
+    min-width: 80px;
+}
+
+@media (min-width: 640px) {
+    .markdown-content th,
+    .markdown-content td {
+        padding: 0.75rem;
+        white-space: normal;
+        min-width: 100px;
+    }
 }
 
 .markdown-content th {
     background-color: #1f2937;
     font-weight: 600;
     color: white;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 .markdown-content img {

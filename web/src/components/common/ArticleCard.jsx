@@ -49,7 +49,7 @@ const ArticleCard = ({ article, type = 'original', onDelete, onViewVersions, onR
     return (
         <div className="bg-gray-800 rounded-lg overflow-hidden hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300 border border-gray-700 hover:border-purple-500/50">
             {/* Card Header */}
-            <div className="p-6">
+            <div className="p-4 sm:p-6">
                 {/* Meta Info */}
                 <div className="flex items-center gap-4 text-sm text-gray-400 mb-3">
                     <span className="flex items-center gap-1">
@@ -91,7 +91,7 @@ const ArticleCard = ({ article, type = 'original', onDelete, onViewVersions, onR
                 )}
 
                 {/* Action Buttons */}
-                <div className="flex gap-3 mt-4">
+                <div className="flex flex-wrap gap-2 sm:gap-3 mt-4">
                     {type === 'updated' ? (
                         <Link
                             to={`/updated-article/${article._id}`}

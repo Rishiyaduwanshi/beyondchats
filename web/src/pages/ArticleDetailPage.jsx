@@ -79,18 +79,18 @@ const ArticleDetailPage = () => {
             </Link>
 
             {/* Article Header */}
-            <div className="bg-gray-800 rounded-lg p-8 mb-8 border border-gray-700">
-                <div className="flex items-start justify-between mb-4">
-                    <h1 className="text-3xl md:text-4xl font-bold text-white flex-1">
+            <div className="bg-gray-800 rounded-lg p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8 border border-gray-700">
+                <div className="flex flex-col sm:flex-row items-start sm:justify-between gap-3 sm:gap-4 mb-4">
+                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white flex-1">
                         {article.title}
                     </h1>
                     <button
                         onClick={handleDelete}
                         disabled={isDeleting}
-                        className="ml-4 bg-red-600 hover:bg-red-700 disabled:bg-red-800 text-white p-2 rounded-lg transition-colors"
+                        className="bg-red-600 hover:bg-red-700 disabled:bg-red-800 text-white p-2 rounded-lg transition-colors self-end sm:self-auto"
                         title="Delete article"
                     >
-                        <Trash2 className="w-5 h-5" />
+                        <Trash2 className="w-4 h-4 sm:w-5 sm:h-5" />
                     </button>
                 </div>
 
@@ -126,8 +126,8 @@ const ArticleDetailPage = () => {
             </div>
 
             {/* Article Content */}
-            <div className="bg-gray-800 rounded-lg p-8 border border-gray-700">
-                <div className="markdown-content prose prose-invert max-w-none">
+            <div className="bg-gray-800 rounded-lg p-4 sm:p-6 lg:p-8 border border-gray-700 overflow-hidden">
+                <div className="markdown-content prose prose-sm sm:prose prose-invert max-w-none overflow-x-auto">
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>
                         {article.contentMarkdown || 'No content available'}
                     </ReactMarkdown>
@@ -136,8 +136,8 @@ const ArticleDetailPage = () => {
 
             {/* References Section */}
             {article.references && article.references.length > 0 && (
-                <div className="bg-gray-800 rounded-lg p-8 mt-8 border border-gray-700">
-                    <h2 className="text-2xl font-bold text-white mb-4">References</h2>
+                <div className="bg-gray-800 rounded-lg p-4 sm:p-6 lg:p-8 mt-6 sm:mt-8 border border-gray-700">
+                    <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">References</h2>
                     <div className="space-y-3">
                         {article.references.map((ref, index) => (
                             <a

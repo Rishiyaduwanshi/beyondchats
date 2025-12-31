@@ -156,15 +156,15 @@ const HomePage = () => {
             </div>
 
             {/* Scrape Section */}
-            <div className="bg-gray-800 rounded-lg p-6 mb-8 border border-gray-700">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="bg-gray-800 rounded-lg p-4 sm:p-6 mb-8 border border-gray-700">
+                <div className="flex flex-col gap-4">
                     <div className="flex-1">
-                        <h3 className="text-lg font-semibold text-white mb-2">Scrape New Articles</h3>
-                        <p className="text-gray-400 text-sm">
+                        <h3 className="text-base sm:text-lg font-semibold text-white mb-1 sm:mb-2">Scrape New Articles</h3>
+                        <p className="text-gray-400 text-xs sm:text-sm">
                             Fetch the oldest articles from BeyondChats blog
                         </p>
                     </div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                         <div className="flex items-center gap-2">
                             <label htmlFor="scrapeCount" className="text-gray-400 text-sm whitespace-nowrap">
                                 Count:
@@ -173,7 +173,7 @@ const HomePage = () => {
                                 id="scrapeCount"
                                 value={scrapeCount}
                                 onChange={(e) => setScrapeCount(Number(e.target.value))}
-                                className="bg-gray-700 text-white px-3 py-2 rounded-lg border border-gray-600 focus:outline-none focus:border-purple-500 cursor-pointer"
+                                className="bg-gray-700 text-white px-3 py-2 rounded-lg border border-gray-600 focus:outline-none focus:border-purple-500 cursor-pointer text-sm flex-1 sm:flex-none"
                                 disabled={scraping}
                             >
                                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20].map(num => (
@@ -184,9 +184,9 @@ const HomePage = () => {
                         <button
                             onClick={handleScrape}
                             disabled={scraping}
-                            className="bg-purple-600 hover:bg-purple-700 disabled:bg-purple-800 text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
+                            className="bg-purple-600 hover:bg-purple-700 disabled:bg-purple-800 text-white px-4 sm:px-6 py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 text-sm sm:text-base w-full sm:w-auto"
                         >
-                            <Download className="w-5 h-5" />
+                            <Download className="w-4 h-4 sm:w-5 sm:h-5" />
                             {scraping ? 'Scraping...' : 'Scrape Articles'}
                         </button>
                     </div>
