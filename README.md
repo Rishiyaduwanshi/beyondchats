@@ -2,15 +2,19 @@
 
 > AI-powered content optimization platform that scrapes articles, analyzes top-ranking content, and generates enhanced versions using LLM technology.
 
+## 🌐 Live Demo
+
+- **Frontend**: [beyondchats.iamabhinav.dev](https://beyondchats.iamabhinav.dev) (Hosted on Cloudflare)
+- **Backend API**: [api.beyondchats.iamabhinav.dev](https://api.beyondchats.iamabhinav.dev) (Hosted on DigitalOcean)
+
 ## 🚀 Features
 
 - **Web Scraping**: Automatically scrape articles from BeyondChats blog
-- **Competitive Analysis**: Search and analyze top-ranking articles on Google
 - **AI Enhancement**: Generate optimized content using Groq's 
 - **Version Control**: Track multiple AI-enhanced versions of each article
 - **Modern UI**: Beautiful, responsive React frontend with dark theme
 - **RESTful API**: Complete CRUD operations for articles
-- **Markdown Support**: Full markdown rendering with syntax highlighting
+- **Markdown Support**: Full markdown rendering 
 
 ## 🏗️ Architecture
 
@@ -49,26 +53,25 @@
 
 ## 📊 Data Flow
 
-```
-1. User Clicks "Scrape" → Backend scrapes BeyondChats blog
-                       → Articles stored in MongoDB
-
-2. User Clicks "Rewrite" on Article
-   ↓
-3. Backend searches article title on Google (SerpAPI)
-   ↓
-4. Extracts top 2 blog/article URLs
-   ↓
-5. Scrapes content from those URLs (Cheerio)
-   ↓
-6. Sends to Groq LLM with prompt:
-   "Rewrite this article matching the style of top-ranking content"
-   ↓
-7. LLM generates enhanced version
-   ↓
-8. Backend saves new version with references
-   ↓
-9. Frontend displays version in modal
+```mermaid
+graph TD
+    A[User Clicks 'Scrape'] --> B[Backend Scrapes BeyondChats Blog]
+    B --> C[Articles Stored in MongoDB]
+    
+    D[User Clicks 'Rewrite' on Article] --> E[Backend Searches Article Title on Google]
+    E --> F[SerpAPI Returns Top Search Results]
+    F --> G[Extract Top 2 Blog/Article URLs]
+    G --> H[Scrape Content from URLs using Cheerio]
+    H --> I[Send to Groq LLM with Prompt]
+    I --> J[LLM Generates Enhanced Version]
+    J --> K[Backend Saves New Version with References]
+    K --> L[Frontend Displays Version in Modal]
+    
+    style A fill:#8b5cf6,stroke:#7c3aed,color:#fff
+    style D fill:#8b5cf6,stroke:#7c3aed,color:#fff
+    style C fill:#10b981,stroke:#059669,color:#fff
+    style J fill:#f59e0b,stroke:#d97706,color:#fff
+    style L fill:#3b82f6,stroke:#2563eb,color:#fff
 ```
 
 ## 🛠️ Tech Stack
