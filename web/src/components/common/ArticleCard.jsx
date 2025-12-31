@@ -147,14 +147,17 @@ const ArticleCard = ({ article, type = 'original', onDelete, onViewVersions, onR
             </div>
 
             {/* Footer for Updated Articles */}
-            {type === 'updated' && article.originalBlog && (
+            {type === 'updated' && article.originalBlog?.link && (
                 <div className="bg-gray-900/50 px-6 py-3 border-t border-gray-700">
-                    <Link
-                        to={`/article/${article.originalBlog}`}
+                    <a
+                        href={article.originalBlog.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="text-sm text-purple-400 hover:text-purple-300 transition-colors flex items-center gap-1"
                     >
-                        View Original Article →
-                    </Link>
+                        <ExternalLink className="w-4 h-4" />
+                        View Original Article
+                    </a>
                 </div>
             )}
         </div>

@@ -17,7 +17,12 @@ export const getBlogs = async (req, res, next) => {
             throw new BadRequestError(`Limit must be between ${MIN_LIMIT} and ${MAX_LIMIT}`);
         }
 
-        const blogs = await llmBlog.find().sort({ createdAt: 1 }).limit(limit).lean();
+        const blogs = await llmBlog
+            .find()
+            .populate('originalBlog', 'link')
+            .sort({ createdAt: 1 })
+            .limit(limit)
+            .lean();
 
         appResponse(res, {
             message: 'Blogs fetched successfully',
@@ -33,7 +38,7 @@ export const getBlogs = async (req, res, next) => {
 
 export const getBlogById = async (req, res, next) => {
     try {
-        const blog = await llmBlog.findById(req.params.id);
+        const blog = await llmBlog.findById(req.params.id).populate('originalBlog', 'link');
 
         if (!blog) {
             throw new NotFoundError('Blog not found');

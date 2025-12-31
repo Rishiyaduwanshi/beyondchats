@@ -68,7 +68,7 @@ const ArticleDetailPage = () => {
         : 'N/A';
 
     return (
-        <div className="max-w-7xl  mx-auto px-4 sm:px-6 lg:px-8 py-12 fade-in">
+        <div className="max-w-7xl  mx-auto px-4 sm:px-6 lg:px-8 py-4 fade-in">
             {/* Back Button */}
             <Link
                 to="/updated-articles"
@@ -110,15 +110,17 @@ const ArticleDetailPage = () => {
                 )}
 
                 {/* Original Blog Link */}
-                {article.originalBlog && (
+                {article.originalBlog?.link && (
                     <div className="mt-6 pt-6 border-t border-gray-700">
-                        <Link
-                            to={`/article/${article.originalBlog}`}
-                            className="inline-flex  px-2 py-1 bg-purple-500/10 rounded-xl items-center gap-2 text-purple-600 hover:text-purple-500 transition-colors"
+                        <a
+                            href={article.originalBlog.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors font-medium"
                         >
                             View Original Article
-
-                        </Link>
+                            <ExternalLink className="w-4 h-4" />
+                        </a>
                     </div>
                 )}
             </div>

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Newspaper } from 'lucide-react';
+import { Newspaper, Github, Globe, BookOpen } from 'lucide-react';
 
 const Header = () => {
     return (
@@ -29,6 +29,35 @@ const Header = () => {
                         >
                             Updated Articles
                         </Link>
+                        <div className="flex items-center gap-3 ml-2 pl-6 border-l border-gray-700">
+                            <a
+                                href="https://github.com/rishiyaduwanshi"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-gray-400 hover:text-white transition-colors"
+                                title="GitHub"
+                            >
+                                <Github className="w-5 h-5" />
+                            </a>
+                            <a
+                                href="https://iamabhinav.dev"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-gray-400 hover:text-white transition-colors"
+                                title="Portfolio"
+                            >
+                                <Globe className="w-5 h-5" />
+                            </a>
+                            <a
+                                href="https://blog.iamabhinav.dev"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-gray-400 hover:text-white transition-colors"
+                                title="Blog"
+                            >
+                                <BookOpen className="w-5 h-5" />
+                            </a>
+                        </div>
                     </nav>
                 </div>
             </div>

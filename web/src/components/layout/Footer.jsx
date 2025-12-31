@@ -1,5 +1,3 @@
-import { Github, Linkedin } from 'lucide-react';
-
 const Footer = () => {
     return (
         <footer className="bg-gray-900 border-t border-gray-800 mt-auto">
@@ -7,30 +5,17 @@ const Footer = () => {
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                     <div className="text-center md:text-left">
                         <p className="text-gray-400 text-sm">
-                            © 2025 BeyondChats Article Manager
+                            © {new Date().getFullYear()} Abhinav Prakash. All Rights Reserved.
                         </p>
                         <p className="text-gray-500 text-xs mt-1">
-                            Built with React, Tailwind CSS & Node.js
+                            This codebase is protected under copyright law. Unauthorized use, reproduction, or distribution is prohibited.
                         </p>
                     </div>
 
-                    <div className="flex items-center gap-4">
-                        <a
-                            href="https://github.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-gray-400 hover:text-white transition-colors"
-                        >
-                            <Github className="w-5 h-5" />
-                        </a>
-                        <a
-                            href="https://linkedin.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-gray-400 hover:text-white transition-colors"
-                        >
-                            <Linkedin className="w-5 h-5" />
-                        </a>
+                    <div className="text-center md:text-right">
+                        <p className="text-gray-500 text-xs">
+                            Built with React, TailwindCSS & Node.js
+                        </p>
                     </div>
                 </div>
             </div>
